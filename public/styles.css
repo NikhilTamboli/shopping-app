@@ -1,4 +1,7 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
+.body{
+    overflow-x: hidden;
+}
 
 .header1{
     font-size: 50px;
@@ -19,16 +22,70 @@
     margin-right: auto;
 }
 
+.footer{
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    padding: 10px;
+    background-color: darkslategrey;
+    color: white;
+    width: 100%;
+}
+
 .drawer1{
     margin: 20px;
     text-align: center;
+    height: 350px;
 }
+
+.moreBtn{
+    border-radius: 50%;
+    background-color: white;
+    transition-duration: 1s;
+    color: black;
+}
+
+.moreBtn:hover{
+    border-radius: 0;
+}
+
+.more{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("./img/bg.jpg");
+  
+    /* Set a specific height */
+    min-height: 250px;
+
+    color: white;
+    text-align: center;
+    display: table-cell;
+    height: 250px;
+    width: 1000vw;
+    font-size: 50px;
+    font-weight: 900;
+    vertical-align: middle;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
 /* card */
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 10vw;
     margin-top: 10px;
+    height: 300px;
     margin-left: 20px;
     margin-right: 20px;
     text-align: center;

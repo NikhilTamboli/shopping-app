@@ -113,23 +113,51 @@
     </div>
   </div>
 
+<div class="parallax">
+  Women's Clothing
+</div>
+
   <div class="drawer1">
-    <h2>Women's Clothing</h2>
     <ul class="women" id="women">
     </ul>
   </div>
 
+  <div class="parallax">
+    Men's Clothing
+  </div>
+
   <div class="drawer1">
-    <h2>Men's Clothing</h2>
     <ul class="women" id="men">
     </ul>
   </div>
 
+  <div class="parallax">
+    Jewelery
+  </div>
+
   <div class="drawer1">
-    <h2>Jewelery</h2>
     <ul class="women" id="jewelery">
     </ul>
   </div>
+
+  <div class="parallax">
+    Electronics
+  </div>
+
+  <div class="drawer1">
+    <ul class="women" id="electronics">
+    </ul>
+  </div>
+
+  <div class="more">
+    <p>Show More</p>
+    <button class="moreBtn"><img src="./img/down.png"></button>
+  </div>
+
+  <div class="footer">
+    <p>A Lazieventions Project</p>
+    <p>Contact: <a href="mailto:f20211603@goa.bits-pilani.ac.in" style="color: white;">f20211603@goa.bits-pilani.ac.in</a></p>
+  </div class="footer">
 
 </body>
 <!-- script for header1 -->
@@ -182,7 +210,7 @@ var x = setInterval(function() {
     var img = document.createElement("img");
     fetch(url)
             .then(res=>res.json())
-            // .then(json=>console.log(json.length))
+            // .then(json=>console.log(json.length)+cat)
             .then(json=>img.setAttribute("src",json[i].image));
     img.setAttribute("style", "width:100%; border-radius:10px; height:150px");
     div.appendChild(img);
@@ -223,6 +251,9 @@ var x = setInterval(function() {
   }
   for(let i=0;i<4;i++){
     addCard(i,"jewelery", "jewelery");
+  }
+  for(let i=0;i<6;i++){
+    addCard(i,"electronics", "electronics");
   }
 </script>
 </html>

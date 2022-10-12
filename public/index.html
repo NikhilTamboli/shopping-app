@@ -154,6 +154,18 @@
     <button class="moreBtn"><img src="./img/down.png"></button>
   </div>
 
+  <div id="overlay">
+    <div class=" overlay oCard">
+      <img id="oImg">
+      <p id="oTitle">Name</p>
+      <p id="oDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum totam natus ea quam dolorum, dolore ullam, hic debitis non itaque sint asperiores minus? Optio molestias explicabo quaerat iusto, placeat dolorum!</p>
+      <s id="oPrice" style="font-size:15px; color: red;">$100</s>
+      <p id="oDiscount" style="font-size:24px; color: green;">$80</p>
+      <button id="oBtn">Add to cart</button>
+      <button id="oClose">Close</button>
+    </div>
+  </div>
+
   <div class="footer">
     <p>A Lazieventions Project</p>
     <p>Contact: <a href="mailto:f20211603@goa.bits-pilani.ac.in" style="color: white;">f20211603@goa.bits-pilani.ac.in</a></p>
@@ -162,14 +174,14 @@
 </body>
 <!-- script for header1 -->
 <script>
-  var i = 0;
+  var z = 0;
   var txt = 'FESTIVE OFFERS AHEAD!';
   var speed = 100;
   
   function typeWriter() {
-    if (i < txt.length) {
-    document.getElementById("header1").innerHTML += txt.charAt(i);
-    i++;
+    if (z < txt.length) {
+    document.getElementById("header1").innerHTML += txt.charAt(z);
+    z++;
     setTimeout(typeWriter, speed);
     }
   }
@@ -207,36 +219,31 @@ var x = setInterval(function() {
     var li = document.createElement("li");
     var div = document.createElement("div");
     div.setAttribute("class", "card");
+    div.setAttribute("id", `${i}${cat}`);
+    div.setAttribute("onClick", "showCard(this.id)");
     var img = document.createElement("img");
     fetch(url)
             .then(res=>res.json())
-            // .then(json=>console.log(json.length)+cat)
             .then(json=>img.setAttribute("src",json[i].image));
     img.setAttribute("style", "width:100%; border-radius:10px; height:150px");
     div.appendChild(img);
     var h4 = document.createElement("h4");
-    // h4.appendChild(document.createTextNode("Tailored Jeans"));
     fetch(url)
             .then(res=>res.json())
-            // .then(json=>console.log(json.length))
             .then(json=>
             h4.appendChild(document.createTextNode(json[i].title.slice(0,30)+"..."))
             );
     div.appendChild(h4);
     var price = document.createElement("s");
     price.setAttribute("class", "price");
-    // price.appendChild(document.createTextNode("$19.99"));
     fetch(url)
             .then(res=>res.json())
-            // .then(json=>console.log(json.length)+cat)
             .then(json=>price.appendChild(document.createTextNode("$"+json[i].price)));
     
     var discount = document.createElement("p");
     discount.setAttribute("style", "font-size:20px; color:green;");
-    // price.appendChild(document.createTextNode("$19.99"));
     fetch(url)
             .then(res=>res.json())
-            // .then(json=>console.log(json.length))
             .then(json=>discount.appendChild(document.createTextNode("$"+Math.floor(json[i].price*0.8))));
     div.appendChild(price);
     div.appendChild(discount);
@@ -255,6 +262,41 @@ var x = setInterval(function() {
   for(let i=0;i<6;i++){
     addCard(i,"electronics", "electronics");
   }
+</script>
+<!-- overlay -->
+<script>
+  function showCard(id){
+    document.getElementById("overlay").style.display = "block";
+    var prd = id[0];
+    var cat = id.slice(1);
+    const url = `https://fakestoreapi.com/products/category/${cat}`;
+    fetch(url)
+              .then(res=>res.json())
+              .then(json=>document.getElementById("oImg").src= json[prd].image);
+    fetch(url)
+      .then(res=>res.json())
+      .then(json=>document.getElementById("oTitle").innerHTML= json[prd].title);
+    fetch(url)
+      .then(res=>res.json())
+      .then(json=>document.getElementById("oDesc").innerHTML= json[prd].description);
+    fetch(url)
+      .then(res=>res.json())
+      .then(json=>document.getElementById("oPrice").innerHTML= "$"+json[prd].price);
+    fetch(url)
+      .then(res=>res.json())
+      .then(json=>document.getElementById("oDiscount").innerHTML= "$"+Math.floor(json[prd].price*0.8));
+  }
+
+  function close(){
+    document.getElementById("overlay").style.display = "none";
+    console.log("closing");
+  }
+
+  document.getElementById("oClose").onclick = function(){
+    document.getElementById("overlay").style.display = "none";
+    console.log("closing");
+  }
+  
 </script>
 </html>
 

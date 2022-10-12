@@ -131,6 +131,24 @@ li{
     list-style: none;
   }
 
+#cartCount{
+  background-color: yellow;
+  border-radius: 50%;
+  min-width: 20px;
+  color: black;
+  display: none;
+  padding: 2px;
+}
+
+#wishCount{
+  background-color: yellow;
+  border-radius: 50%;
+  min-width: 20px;
+  color: black;
+  display: none;
+  padding: 2px;
+}
+
 /* overlay */
 #overlay {
     position: fixed;
@@ -175,8 +193,8 @@ li{
 }
 
 #oBtn{
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: fit-content;
     border: none;
     background-color: #04AA6D;
     padding: 14px 28px;
@@ -187,12 +205,25 @@ li{
 }
 
 #oClose{
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: fit-content;
   border: none;
   /* margin-top: 10px; */
   background-color: white;
   padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  bottom: 0;
+}
+
+#oWish{
+  display: inline-block;
+  width: fit-content;
+  border: none;
+  background-color: #D22B2B;
+  padding: 14px 28px;
+  margin-top: 10px;
   font-size: 16px;
   cursor: pointer;
   text-align: center;

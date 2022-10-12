@@ -14,7 +14,7 @@
 <body onload="typeWriter()">
 
   <!-- navbar -->
-<nav class="navbar navbar-inverse" style="margin:0; border-radius:0;">
+<nav class="navbar navbar-inverse" style="margin:0; border-radius:0; position: fixed; width: 100%; top: 0; z-index:100;">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Shopping App</a>
@@ -37,23 +37,25 @@
         </div>
       </div>
     </form>
-    <div class="btn">
-      <button type="button" class="btn  btn-primary navbar-btn" style="margin: auto;">
+    <div class="btn" style="width: fit-content;">
+      <button type="button" id="cart" class="btn  btn-primary navbar-btn" style="margin: auto;">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
         </svg>
-        Cart
+        Cart 
+        <p id="cartCount">0</p>
       </button>
       <button type="button" class="btn  btn-danger navbar-btn" style="margin: auto;">
         <i class="fa fa-heart-o"></i>
          Wishlist
+         <p id="wishCount">0</p>
       </button>
     </div>
   </div>
 </nav>
 
 <!-- carousel -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel" >
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -113,9 +115,9 @@
     </div>
   </div>
 
-<div class="parallax">
-  Women's Clothing
-</div>
+  <div class="parallax">
+    Women's Clothing
+  </div>
 
   <div class="drawer1">
     <ul class="women" id="women">
@@ -157,17 +159,18 @@
   <div id="overlay">
     <div class=" overlay oCard">
       <img id="oImg">
-      <p id="oTitle">Name</p>
-      <p id="oDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum totam natus ea quam dolorum, dolore ullam, hic debitis non itaque sint asperiores minus? Optio molestias explicabo quaerat iusto, placeat dolorum!</p>
-      <s id="oPrice" style="font-size:15px; color: red;">$100</s>
-      <p id="oDiscount" style="font-size:24px; color: green;">$80</p>
-      <button id="oBtn">Add to cart</button>
+      <p id="oTitle"></p>
+      <p id="oDesc">Loading item...</p>
+      <s id="oPrice" style="font-size:15px; color: red;"></s>
+      <p id="oDiscount" style="font-size:24px; color: green;"></p>
+      <button id="oBtn" onclick="atCart()">Add to cart</button>
+      <button id="oWish" onclick="atWish()">Add to Wishlist</button>
       <button id="oClose">Close</button>
     </div>
   </div>
 
   <div class="footer">
-    <p>A Lazieventions Project</p>
+    <p>DevSoc Core Review Project - Nikhil Tamboli</p>
     <p>Contact: <a href="mailto:f20211603@goa.bits-pilani.ac.in" style="color: white;">f20211603@goa.bits-pilani.ac.in</a></p>
   </div class="footer">
 
@@ -265,8 +268,10 @@ var x = setInterval(function() {
 </script>
 <!-- overlay -->
 <script>
+  var currentItem = "";
   function showCard(id){
     document.getElementById("overlay").style.display = "block";
+    currentItem = id;
     var prd = id[0];
     var cat = id.slice(1);
     const url = `https://fakestoreapi.com/products/category/${cat}`;
@@ -289,14 +294,31 @@ var x = setInterval(function() {
 
   function close(){
     document.getElementById("overlay").style.display = "none";
-    console.log("closing");
   }
 
   document.getElementById("oClose").onclick = function(){
     document.getElementById("overlay").style.display = "none";
-    console.log("closing");
   }
   
+</script>
+<!-- Add to cart Feature -->
+<script>
+  var items = [];
+  function atCart(){
+    items.push(currentItem);
+    if(items.length!=0){
+      document.getElementById("cartCount").style.display = "inline";
+      document.getElementById("cartCount").innerHTML = items.length;
+    }
+  }
+
+  function atWish(){
+    items.push(currentItem);
+    if(items.length!=0){
+      document.getElementById("wishCount").style.display = "inline";
+      document.getElementById("wishCount").innerHTML = items.length;
+    }
+  }
 </script>
 </html>
 

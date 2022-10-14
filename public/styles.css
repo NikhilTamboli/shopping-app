@@ -3,6 +3,10 @@
     overflow-x: hidden;
 }
 
+/* nav{
+  display: none;
+} */
+
 .header1{
     font-size: 50px;
     font-weight: 900;
@@ -221,11 +225,74 @@ li{
   display: inline-block;
   width: fit-content;
   border: none;
-  background-color: #D22B2B;
+  /* background-color: #D22B2B; */
   padding: 14px 28px;
   margin-top: 10px;
   font-size: 16px;
   cursor: pointer;
   text-align: center;
   bottom: 0;
+}
+
+/* cart */
+.main{
+  height: 90%;
+  width: 80%;
+  /* background-color: #000; */
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: #000;
+  position: relative;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+}
+
+
+.cartFooter{
+  width: 80%;
+  height: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  /* bottom: 0%; */
+  /* position: absolute; */
+  /* bottom: 0; */
+  background-color: #04AA6D;
+}
+
+.Hcard{
+  width: 100%;
+  height: 150px;
+  margin-top: 10px;
+  /* position: absolute; */
+  margin-left: auto;
+  margin-right: auto;
+  /* background-color: red; */
+  border-radius: 20px;
+  display: flex;
+}
+
+.cartImg{
+  height: 100%;
+  width: 15%;
+  margin-left: 5%;
+}
+
+.span1{
+  /* background-color: aqua; */
+  height: 100%;
+  width: 75%;
+  display: inline;
+  padding-left: 2%;
+  margin-left: 5%;
+}
+
+.subSpan1{
+  /* background-color: blue; */
+  height: 50%;
+  width: 75%;
+  display: inline;
+  margin-left: 5%;
+  z-index: 3;
 }

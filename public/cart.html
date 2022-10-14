@@ -1,0 +1,151 @@
+<!DOCTYPE html5>
+<html lang="en">
+<head>
+  <title>Shopping App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- <link rel="shortcut icon" href="%PUBLIC_URL%" type="image/x-icon"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-inverse" style="margin:0; border-radius:0; position: fixed; width: 100%; top: 0; z-index:100;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Shopping App</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Women</a></li>
+            <li><a href="#">Kids</a></li>
+            <li><a href="#">Home and Living</a></li>
+            <li><a href="#">Beauty</a></li>
+          </ul>
+          <form class="navbar-form navbar-left" action="/action_page.php">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="search">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="btn" style="width: fit-content;">
+            <button type="button" id="cart" class="btn  btn-primary navbar-btn" style="margin: auto;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+              </svg>
+              Cart 
+              <p id="cartCount">0</p>
+            </button>
+            <button type="button" class="btn  btn-danger navbar-btn" style="margin: auto;">
+              <i class="fa fa-heart-o"></i>
+               Wishlist
+               <p id="wishCount">0</p>
+            </button>
+          </div>
+        </div>
+      </nav>
+    <div style="height: 80%;">
+    <!-- main -->
+    <div class="main" id="main">
+        <!-- cards -->
+
+
+    </div>
+    <div class="cartFooter"></div>
+    </div>
+
+</body>
+<!-- add to cart -->
+<script>
+    items = localStorage["items"];
+    function atCart(){
+      items.push(currentItem);
+      if(items.length!=0){
+        document.getElementById("cartCount").style.display = "inline";
+        document.getElementById("cartCount").innerHTML = items.length;
+      }
+    }
+  
+    function atWish(){
+      items.push(currentItem);
+      if(items.length!=0){
+        document.getElementById("wishCount").style.display = "inline";
+        document.getElementById("wishCount").innerHTML = items.length;
+      }
+
+    }
+  </script>
+
+<!-- load items -->
+<script>
+  d = localStorage["items"];
+  // console.log(d);
+  var items =[];
+  var temp = ""
+  for(let i=0;i<d.length; i++){
+    if(d[i]!=","){
+      temp+=d[i];
+    } else {
+      items.push(temp);
+      temp="";
+    }
+  }
+  items.push(temp);
+
+  for(let i=0;i<items.length;i++){
+    console.log(items[i]);
+    var prd = items[i][0];
+    var cat = items[i].slice(1);
+    let url = `https://fakestoreapi.com/products/category/${cat} `;
+    // console.log(url);
+    fetch(url)
+              .then(res=>res.json())
+              .then(json=>console.log(json[prd]));
+
+    var div1 = document.createElement("div");
+    div1.setAttribute("class","Hcard");
+    var img = document.createElement("img");
+    img.setAttribute("class", "cartImg")
+    fetch(url)
+              .then(res=>res.json())
+              .then(json=>img.setAttribute("src",json[prd].image));
+    div1.appendChild(img);
+    var div2 = document.createElement("div");
+    div2.setAttribute("class", "span1");
+    var div3 = document.createElement("div");
+    div3.setAttribute("class", "subSpan1");
+    var h3 = document.createElement("h3");
+    fetch(url)
+              .then(res=>res.json())
+              .then(json=>h3.innerHTML = json[prd].title);
+    h3.setAttribute("id", "cartTitle");
+    h3.setAttribute("style", "margin-top: 2%;");
+    div3.appendChild(h3);
+    var h5 = document.createElement("h5");
+    var s = document.createElement("s");
+    s.setAttribute("style","color:red;");
+    fetch(url)
+      .then(res=>res.json())
+      .then(json=>s.innerHTML= "$"+json[prd].price);
+    h5.appendChild(s);
+    div3.appendChild(h5);
+    var h4 = document.createElement("h4");
+    h4.setAttribute("style", "color:green");
+    fetch(url)
+      .then(res=>res.json())
+      .then(json=>h4.innerHTML= "$"+Math.floor(json[prd].price*0.8));    
+    div3.appendChild(h4);
+
+    div2.appendChild(div3);
+    div1.appendChild(div2);
+    document.getElementById("main").appendChild(div1);
+  }
+</script>

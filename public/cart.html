@@ -59,63 +59,80 @@
 
 
     </div>
-    <div class="cartFooter"></div>
+    <div class="cartFooter">
+      <span class="itemsCount"><h3 id="noItems"></h3></span>
+      <span class="total"><h3 id="total"></h3></span>
+      <button class="buyBtn" onclick="">Proceed to buy</button>
+    </div>
     </div>
 
 </body>
-<!-- add to cart -->
-<script>
-    items = localStorage["items"];
-    function atCart(){
-      items.push(currentItem);
-      if(items.length!=0){
-        document.getElementById("cartCount").style.display = "inline";
-        document.getElementById("cartCount").innerHTML = items.length;
-      }
-    }
-  
-    function atWish(){
-      items.push(currentItem);
-      if(items.length!=0){
-        document.getElementById("wishCount").style.display = "inline";
-        document.getElementById("wishCount").innerHTML = items.length;
-      }
-
-    }
-  </script>
 
 <!-- load items -->
 <script>
-  d = localStorage["items"];
-  // console.log(d);
-  var items =[];
-  var temp = ""
-  for(let i=0;i<d.length; i++){
-    if(d[i]!=","){
-      temp+=d[i];
-    } else {
+  var sum=0;
+
+  // loadData();
+
+  function loadData(){
+
+    document.getElementById("main").innerHTML="";
+    sum = 0;
+
+    d = localStorage["items"];
+    console.log("size of d "+d.length);
+    if(d.length>0){    
+      var items =[];
+      var temp = ""
+      for(let i=0;i<d.length; i++){
+        if(d[i]!=","){
+          temp+=d[i];
+        } else {
+          items.push(temp);
+          temp="";
+        }
+      }
       items.push(temp);
-      temp="";
+    } else {
+      var items = [];
+      document.getElementById("total").innerHTML = `Total amount: $`+0;
+      document.getElementById("cartCount").style.display = "none";
     }
-  }
-  items.push(temp);
 
-  for(var i=0;i<items.length;i++){
-    data(i);
+    console.log(items.length);
+
+    for(var i=0;i<items.length;i++){
+      data(i, items);
+    }
+
+    if(items.length!=0){
+      document.getElementById("cartCount").style.display = "inline";
+      document.getElementById("cartCount").innerHTML = items.length;
+    }
+    document.getElementById("noItems").innerHTML = `Total items: ${items.length}`;
   }
 
-  function data(i){
-    // console.log(items[i][0]);
+  function getSum(p){
+    sum+=p;
+    document.getElementById("total").innerHTML = `Total amount: $`+Math.floor(sum);
+  }
+
+  function data(i, items){
+    sum=0;
+
     var prd = items[i][0];
     var cat = items[i].slice(1);
     var url = `./${cat}.json `;
-    // console.log(prd+"...");
-    // fetch(url)
-    //           .then(res=>res.json())
-    //           .then(json=>console.log(json[prd]));
+    
+    fetch(url)
+      .then(res=>res.json())
+      .then(json=>{
+        getSum(Math.floor(json[prd].price*0.8));
+      });
 
     var div1 = document.createElement("div");
     div1.setAttribute("class","Hcard");
+    div1.setAttribute("id", `${prd}${cat}`);
     var img = document.createElement("img");
     img.setAttribute("class", "cartImg")
     fetch(url)
@@ -139,6 +156,7 @@
     fetch(url)
       .then(res=>res.json())
       .then(json=>s.innerHTML= "$"+json[prd].price);
+
     h5.appendChild(s);
     div3.appendChild(h5);
     var h4 = document.createElement("h4");
@@ -150,6 +168,40 @@
 
     div2.appendChild(div3);
     div1.appendChild(div2);
+
+    var del = document.createElement("button");
+    del.innerHTML = "Delete";
+    del.setAttribute("onclick", "removeItem(this.id)");
+    del.setAttribute("class", "del");
+    div1.appendChild(del);
     document.getElementById("main").appendChild(div1);
   }
+
+  loadData();
+
+  function removeItem(id){
+    d = localStorage["items"];
+    var items =[];
+    var temp = ""
+    for(let i=0;i<d.length; i++){
+      if(d[i]!=","){
+        temp+=d[i];
+      } else {
+        items.push(temp);
+        temp="";
+      }
+    }
+    items.push(temp);
+
+    const index = items.indexOf(id);
+
+    console.log(items);
+    items.splice(index, 1);
+    // console.log(index);
+
+    console.log(items);
+    localStorage["items"] = items;
+    loadData();
+  }
+  
 </script>

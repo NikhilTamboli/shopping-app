@@ -16,15 +16,15 @@
     <nav class="navbar navbar-inverse" style="margin:0; border-radius:0; position: fixed; width: 100%; top: 0; z-index:100;">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Shopping App</a>
+            <a class="navbar-brand" href="./index.html">Shopping App</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Men</a></li>
-            <li><a href="#">Women</a></li>
-            <li><a href="#">Kids</a></li>
-            <li><a href="#">Home and Living</a></li>
-            <li><a href="#">Beauty</a></li>
+            <li class="active"><a href="./index.html">Home</a></li>
+            <li><a href="./index.html">Men</a></li>
+            <li><a href="./index.html">Women</a></li>
+            <li><a href="./index.html">Kids</a></li>
+            <li><a href="./index.html">Home and Living</a></li>
+            <li><a href="./index.html">Beauty</a></li>
           </ul>
           <form class="navbar-form navbar-left" action="/action_page.php">
             <div class="input-group">
@@ -100,15 +100,19 @@
   }
   items.push(temp);
 
-  for(let i=0;i<items.length;i++){
-    console.log(items[i]);
+  for(var i=0;i<items.length;i++){
+    data(i);
+  }
+
+  function data(i){
+    // console.log(items[i][0]);
     var prd = items[i][0];
     var cat = items[i].slice(1);
-    let url = `https://fakestoreapi.com/products/category/${cat} `;
-    // console.log(url);
-    fetch(url)
-              .then(res=>res.json())
-              .then(json=>console.log(json[prd]));
+    var url = `./${cat}.json `;
+    // console.log(prd+"...");
+    // fetch(url)
+    //           .then(res=>res.json())
+    //           .then(json=>console.log(json[prd]));
 
     var div1 = document.createElement("div");
     div1.setAttribute("class","Hcard");

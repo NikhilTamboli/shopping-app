@@ -21,11 +21,11 @@
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="%PUBLIC_URL%/index.html">Home</a></li>
-        <li><a href="#">Men</a></li>
-        <li><a href="#">Women</a></li>
-        <li><a href="#">Kids</a></li>
-        <li><a href="#">Home and Living</a></li>
-        <li><a href="#">Beauty</a></li>
+        <li><a href="%PUBLIC_URL%/index.html">Men</a></li>
+        <li><a href="%PUBLIC_URL%/index.html">Women</a></li>
+        <li><a href="%PUBLIC_URL%/index.html">Kids</a></li>
+        <li><a href="%PUBLIC_URL%/index.html">Home and Living</a></li>
+        <li><a href="%PUBLIC_URL%/index.html">Beauty</a></li>
       </ul>
       <form class="navbar-form navbar-left" action="/action_page.php">
         <div class="input-group">
@@ -218,7 +218,8 @@ var x = setInterval(function() {
 <!-- drawer1 -->
 <script>
   function addCard(i, cat, id){
-    const url = `https://fakestoreapi.com/products/category/${cat} `;
+    const url = `./${cat}.json `;
+    console.log(url);
     var ul = document.getElementById(id);
     var li = document.createElement("li");
     var div = document.createElement("div");
@@ -275,7 +276,7 @@ var x = setInterval(function() {
     currentItem = id;
     var prd = id[0];
     var cat = id.slice(1);
-    const url = `https://fakestoreapi.com/products/category/${cat}`;
+    const url = `./${cat}.json`;
     fetch(url)
               .then(res=>res.json())
               .then(json=>document.getElementById("oImg").src= json[prd].image);

@@ -1,6 +1,11 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 .body{
     overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.html{
+  scroll-behavior: smooth;
 }
 
 /* nav{
